@@ -1,0 +1,77 @@
+class TodoApp:
+    def __init__(self):
+        self.tasks = []  # List to hold tasks
+
+    def display_tasks(self):
+        """Display the current tasks in the to-do list."""
+        if not self.tasks:
+            print("No tasks available!")
+        else:
+            print("To-Do List:")
+            for index, task in enumerate(self.tasks, 1):
+                print(f"{index}. {task}")
+
+    def add_task(self):
+        """Allow user to add a new task."""
+        task = input("Enter the task you want to add: ")
+        self.tasks.append(task)
+        print(f"Task '{task}' has been added!")
+
+    def edit_task(self):
+        """Allow user to edit an existing task."""
+        self.display_tasks()
+        try:
+            task_number = int(input("Enter the task number you want to edit: "))
+            if 1 <= task_number <= len(self.tasks):
+                new_task = input(f"Enter the new task for '{self.tasks[task_number - 1]}': ")
+                self.tasks[task_number - 1] = new_task
+                print(f"Task has been updated to: {new_task}")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    def delete_task(self):
+        """Allow user to delete a task."""
+        self.display_tasks()
+        try:
+            task_number = int(input("Enter the task number you want to delete: "))
+            if 1 <= task_number <= len(self.tasks):
+                deleted_task = self.tasks.pop(task_number - 1)
+                print(f"Task '{deleted_task}' has been deleted!")
+            else:
+                print("Invalid task number.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    def run(self):
+        """Run the app and allow user to choose actions."""
+        while True:
+            print("\nTo-Do List App")
+            print("1. View Tasks")
+            print("2. Add Task")
+            print("3. Edit Task")
+            print("4. Delete Task")
+            print("5. Exit")
+            try:
+                choice = int(input("Choose an action (1/2/3/4/5): "))
+                if choice == 1:
+                    self.display_tasks()
+                elif choice == 2:
+                    self.add_task()
+                elif choice == 3:
+                    self.edit_task()
+                elif choice == 4:
+                    self.delete_task()
+                elif choice == 5:
+                    print("Goodbye!")
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
+            except ValueError:
+                print("Invalid input! Please enter a valid number.")
+
+# Run the To-Do List app
+if __name__ == "__main__":
+    todo_app = TodoApp()
+    todo_app.run()
